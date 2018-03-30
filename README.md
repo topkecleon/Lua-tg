@@ -1,13 +1,21 @@
-# Lua-tg
-Allows you to send tg-cli commands from Lua via TCP.
+# drua-tg
+Allows you to send tg-cli commands from Lua via TCP more intuitively.
 
 ### Usage
 ```lua
-sender = require('sender')
-tg = sender(ip, port)
-tg:msg(user_id, text)
-link = tg:export_chat_link(chat_id)
-print(link)
+drua = require('drua-tg')
+drua.IP = 'localhost'
+drua.PORT = 4567
+drua.message(chat_id, text)
 ```
 
-Project by JuanPotato with the help of topkecleon.
+To run multiple commands on the same TCP session:
+```lua
+s = drua.sopen()
+drua.message(chat_id, text, s)
+drua.send_photo(chat_id, filename, s)
+s:close()
+```
+
+Previously used in otouto. Based on
+[lua-tg](http://github.com/juanpotato/lua-tg) by JuanPotato.
